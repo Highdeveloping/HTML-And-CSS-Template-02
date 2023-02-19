@@ -1,0 +1,204 @@
+/* Variables:
+
+    - Color for line at the bottom for Header: #a2a2a2
+
+*/
+
+/* introduction: 
+    - name css file with project name. Ex: template2.css
+    - font-family: Open Sans 400, 700.
+    - reset margin and padding for all elements.
+        * {
+            padding:0;
+            margin:0;
+        }
+    - remove list-style from UL.
+        UL {
+            list-style:none;
+        }
+
+*/
+
+/* Header: 
+    - The header consist of 2:
+        1. logo indside a href.
+        2. nav [contain UL and search icon box].
+    
+    - make logo image inside link a href
+    - Use After pseudo Element instead of border bottom to make line for header section.
+    - the width of line under header section start from logo.
+    - make a href links display: block to give it padding.
+    - He gave search icon box width and heigh, and he Make border-left for search icon box.
+    - Tip: In Images, If we edit image height, the width also will edited automatically to be suitable with heigh.
+    
+    Responsive Header:
+    - Create burger icon before nav and hide it in large screen @media [from 768 px to infinity].
+    - its good idea to give name for icons, because may any one need to change the icons library so he will add your class name to the new icon.
+    - make min-height for header container. because when we hide display links in mobile, the header container height will decrease. also
+        we make min-height not height, because may we need to increase the content padding or content height.
+        
+    - if we hide UL by display:none and this UL was display:flex; So to show it again, we use display:flex again not display:block.
+    - From browser we can use force hover on element Ul.
+    - we can use !important.
+   - Diffrent between [.title Vs p.title] : 
+        .title: its mean any element  with class title.
+        p.title: its meam paragraph with class title.
+
+    - To make landing image behind the header, we need to give the header section position absolute: 
+        header {
+            position: absolute;
+            left: 0;
+            width: 100%; [Tip: when we make any alement position:absolute; its width will be fit content. so we make width 100%]
+            z-index: 2;
+            }
+
+    
+*/
+/**********************************************************************************************************************************/
+
+/*Landing Section*/
+/* - give landing min-height:100vh instead of height:100vh, Because may the content increase than 100vh.
+   - We can give landing section background color  in addition of background image (as optinal), So if the background image not
+     working then the background color will work.
+   - Give landing section relative position to give absolute position for elements inside it.(like overlay div, text div, arrows,and 3dots).
+
+    -To make darken screen over the image, we create overlay div in inside the landing section. and give it width and heigh 100% and position absolute.
+     Also give it background color black with opacity 60%. [ background-color: rgb (0 0 0 / 60%); ]
+
+    - Make Transparent color for text background color in variable. 
+    - He give content (h2+p box) max-width:500px and make flex and justify-content: flex-end to make the content
+         at the right.[we can try padding-left].
+ */
+
+ /* Components:
+
+ if there are some elements have the same style, Make it as component to reuse it any time. [like section Heading]
+ 
+ */
+
+ /**********************************************************************************************************************************/
+
+ /* Services Section */
+
+
+ /**********************************************************************************************************************************/
+
+ /* Design Section
+    - We can make darke background [Overlay] by 2 ways: 
+        1. using HTML div.
+        2.using CSS before or after pseudo Element.[give its parent position relative and this before element absolute postion].
+
+    - We can Add Icon by 2 ways: 
+        1. add icon in html.
+        2. using CSS before or after pseudo Element.[give its parent position relative and this before element absolute postion]. but
+        in this case we have to give before or after pseudo Element its content, font-family, and font-weight:
+            ex: 
+                li::before {
+                    content: '\F108';    [in content we  write icon code.] [find the ucon code in Font Awesome website]
+                    font-family: 'Font Awesome 5 free';
+                    font-weight: 900;
+                }
+    
+    - We distributed 2 elements [image div and text div] by flex. and give these 2 element flex:1. So in mobile, when we hide image, we dont need
+    to make text div width 100% because it is flex:1.
+
+ */
+ /**********************************************************************************************************************************/
+ /* Porrfolio section
+     we can determain how many element we want in screen by distribute element by flex .
+        ex: if we want 4 element in screen make flex-base:25%, if we want 3 element in screen, we make flex-base 33.333% and 
+        if we want  element in screen, we make flex-base: 50%.
+ */
+
+ /* Video section
+    in css, we make video width:100% to be full width screen.
+    Read about Aspect Ratio.
+ */
+
+ /* about us
+ 
+    we caan give element relative position top: 100px   to move it down from its positon.   
+*/
+ /**********************************************************************************************************************************/
+/* Testimonial And Skills Section
+   1- in skill bar [Adobe,html&CSS, javascript, php], we can make span inside the div and give it width 90% or 85% accourding to 
+      its percentage value. (we write its percentage value in html instead of css because in javascript we can access and edit and write
+      the value in html file not in css).
+     
+      ex: 
+       <span style= "width: 90%" data-progress="90%"> </span>
+        width => width of span 90%. 
+        data-progress => 90% [we define variable with name data-progress and give it value 90% to show this value on the bar text ]
+    
+    2- .content > div {
+
+    }
+
+    in the above example, the symbol >  its mean all div direct child (first child).
+
+*/
+
+/* Quote
+    the <q> element has its quotation mark " , and we can change this quotation mark by using font Awesome icons ( by before and after).
+ */
+ /**********************************************************************************************************************************/
+/* Pricing Section 
+
+1- To change currency from $ to other currency, dont write the currency inside CSS file. write it in HTML.
+2- We can use position reletaive and move it from its position without using position absolute.
+3- we can style all element except one of them by using :not() 
+    example: [style all li element except last child]
+        .procing .plan ul li:not(:last-child) {
+        }
+
+4. we cam make border bottom for feature by using after psuedo element and center it by position absolute left 50% and transform X -50%
+*/
+ /**********************************************************************************************************************************/
+/* subscribe Section
+1- if you want to add input feild like email or text in html file, it is good to add it inside form element.
+        example: 
+        <form action="">
+            <input type="email" name="mail"   placeholder="your email">
+            <input type="submit" value="subscribe">
+        </form>
+
+2- To access to email input type from css,  we write : 
+        form input[type="email"] {
+        }
+
+3- we can remove background color by 2 ways: give background-color:transparent; Or make background:none; 
+
+4- 
+    form {
+         width:500px;  
+        max-width:100% ;
+    }
+
+    it is mean the form width in large screen is 500px and in small screen (less than 500px) make it 100% of its parent.
+   
+*/
+ /**********************************************************************************************************************************/
+/* Contact us Section
+1- To arrange span or input vertically instead of horezontally, we can do it by many ways: (<br> OR display: block; Or flex-direction:ccolumn;)
+
+2- we can write the addres in html by using element <address> and style it in css by line height.
+
+3- To change order of flex item we can do it by many way: 
+  flex-direction:column-reverse;
+  OR
+  order: -1;
+
+4. we can remove outline when focus: 
+    .main-input:focus {
+        outline:none;
+    }
+
+5. it is good to  make the heiht of textarea for message 200px. 
+
+6.To show input[type:submit] botton as clickable, in css we use:
+    input[type:submit] {
+        curser: pointer;
+    } 
+
+7. We can use justify-content: space-between and give form column flex-base:70% and give information column 25% and leave 5% for space-between.
+*/ 

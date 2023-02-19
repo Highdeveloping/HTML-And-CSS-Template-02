@@ -1,0 +1,1487 @@
+/* Start Variable */
+:root {
+    --main-color: #19c8fa;
+    --header-line-bottom-color: #a2a2a2;
+    --section-padding:100px;
+    --transparent-color: rgb(15 116 143 / 70%);
+    --paragraph-color:#777;
+}
+/* End Variable */
+
+/* Start Global Rules */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Container */
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Small Screen */
+@media (min-width:768px) {
+    .container {
+        width:750px;
+    }
+}
+/* Medium Screen */
+@media (min-width:992px) {
+    .container {
+        width: 970px;
+    }
+}
+/* Large Screen */
+@media (min-width:1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+/* End Global Rules */
+
+/* Start Components */
+/* section Heading */
+.section-heading-component {
+    text-align: center;
+}
+/* style h2 */
+.section-heading-component h2 {
+    font-size: 40px;
+    font-weight: normal;
+    margin-bottom: 70px;
+    text-transform: uppercase;
+
+    position: relative; /*make it relative, To make shape under h2*/
+}
+/* style line shape under h2*/
+.section-heading-component h2::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 1px;
+    background: black;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
+
+/* style circle shape under h2 */
+.section-heading-component h2::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 1px solid black;
+    border-radius: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+
+    bottom: -37.5px;
+    background-color: white;
+}
+/* style p */
+.section-heading-component p {
+    color: #777;
+    line-height: 2;
+    margin: 0 auto 100px auto;
+    
+    width: 550px;
+    max-width: 100%; /*if the screen size less than width, then the width will be 100% of screen size*/
+}
+
+/* End Components */
+/**************************************************************************************************************************/
+/* Start Header */
+header {
+    position: absolute; /*header parent is body, so we make it absolute to allow landing image to start from top left of the page and be behind the header*/
+    width: 100%; /*after we make position apsolute, it width will bw fit-content So we make it here 100%*/
+    z-index: 2; /*To be above the landing image*/
+}
+/* Dustribute container contents by flex.
+Container contain 2 things [logo, Nav]*/
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    min-height: 99.4px; /*make min-height 99.4px because in large screen the container height is 99.4px but in mobilem we 
+     change ul position to be at the bottom. So the container height will decrease. So we make ir 99.4px to keep the container
+     height in mobile at the same height. Also we make it min-height not height, because may we need to increae the link padding or any thing*/
+
+    position: relative; /*make it relative to style the position for any container content as absolute to avoide content to be out container*/
+
+}
+
+/* Make line in container bottom. [Like border bottom] */
+header .container::after {
+    content: '';
+    width: calc(100% - 30px); /*we need the line width as the container width - container padding [15px padding left and 15 px padding right]*/
+    height: 2px;
+    background-color: var(--header-line-bottom-color, #a2a2a2);
+
+    position: absolute; /*its parent is container*/
+    bottom: 0;
+
+    z-index: -1; /*To show the border bottom for link when hover on link [Because border bottom on the same header line at the bottom]*/
+
+}
+
+/* Style logo */
+header .container .logo img {
+    height: 40px; /*when we change image height, the image width will changed automatically.*/
+}
+
+/* Distribute nav contents by flex.
+nav contain 3 things. [toggle menu for mobile + UL + search icon div box] */
+header .container nav {
+    display: flex;
+    align-items: center;
+}
+
+/* Style  toggle menu [Burger menu]*/
+header .container nav .toggle-menu {
+    color: white;
+    font-size: 22px;
+}
+
+/* Hide toggle-menu in large screen */
+@media (min-width:768px) {
+    header .container nav .toggle-menu {
+        display: none;
+    }
+}
+
+
+/* Distribute UL content by flex.
+UL contain li */
+header .container nav ul {
+    display: flex;
+}
+
+/* Style a href link */
+header .container nav ul li a {
+    display: block; /*make it block to give it padding*/
+    padding: 40px 10px;
+
+    text-decoration: none;
+    color: white;
+
+    border-bottom: 1px solid transparent; /*To avoid move the container line at the bottom when we hover on links*/
+}
+
+/* When hover on a links, give color for link and make border-bottom */
+header .container nav ul li a:hover {
+    color: var(--main-color, #19c8fa);
+    border-bottom: 1px solid var(--main-color, #19c8fa);
+}
+
+/* Style Ul in mobile */
+@media (max-width:767px) {
+    header .container nav ul {
+        flex-direction: column; /*distrubute UL by flex direction column*/
+        position: absolute; /*its parent is container, So the top position is 100% from container and left 0 from container*/
+        top: 100%;
+        left: 0; /*left 0 from container because the container is the parent for UL */
+        width: 100%;
+
+        display: none; /*Hide UL and show it only when we hover on toggle-menu*/
+    }
+
+    header .container nav ul li a {
+        padding: 15px; /*change a href link padding in mobile, because it was large padding in large screen*/
+    }
+    /* Show UL when hover on  toggle-menu*/
+    header .container nav .burger-icons-and-links:hover ul {
+        display: flex;
+    }
+
+}
+
+/* Style search icon box */
+header .container nav .form {
+    width: 40px;
+    height: 35px;
+    border-left: 1px solid white; /*make pipeLine between search icon box and UL*/
+    margin-left: 25px; 
+
+    position: relative; /*make it relative, to give position absolute for  search icon*/
+}
+
+/* Style search icon */
+header .container nav .form .search-icon {
+    position: absolute; /*its parent is .form [search icon box]*/
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+
+    color: white;
+    font-size: 20px;
+}
+/* End  Header */
+/**************************************************************************************************************************/
+/* Start Landing */
+.landing {
+    min-height: 100vh;
+    background-image: url(../images/landing.jpg);
+    background-size: cover;
+    position: relative; /* make it relative, to give absolute position for elements inside it.(like overlay div, text div, arrows,and 3dots).*/
+}
+
+/* Make dark over landing image */
+.landing .overlay {
+    position: absolute;
+    width: 100%; /*100% from its parent [landig]*/
+    height: 100%; /*100% from its parent [landig]*/
+    background-color: rgb(0 0 0 / 60%); /*dark color*/
+}
+
+/* style text background div */
+.landing .text-background-box {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+   
+    background-color: rgb(15 116 143 / 70%);
+    padding: 50px;
+    
+    width: 50%; 
+    /* make content flex end, to move text content to the left [left align] . its content only one div and we want align it left*/
+    display: flex;
+    justify-content: flex-end; 
+
+   
+}
+
+/* make text-background-box 100% width in mobile. [from mobile to 767px] */
+@media (max-width:767px) {
+    .landing .text-background-box {
+        width: 100%;
+    }
+}
+
+/* Style content box div*/
+.landing .text-background-box .content {
+   color: white;
+   padding-left: 15px; /*make distance between contect and left angle [left arrow]*/
+   width: 500px; /* its normal width is 100%, and we want to make it align left, so we give it width 500px, and make its parent flex-end */  
+}
+
+/* make content 100% width in mobile. [from mobile to 767px] */
+@media (max-width:767px) {
+    .landing .text-background-box .content {
+        width: 100%;
+    }
+}
+
+/* style h2 */
+.landing .text-background-box .content h2 {
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 1.6;
+}
+
+/* Style p */
+.landing .text-background-box .content p {
+    line-height: 2;
+    font-size: 14px;
+}
+
+/* Style 2 angles left and right [arrows]*/
+.landing .change-background-angle {
+    color: white;
+    font-size: 26px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+/* hide 2 angles [left and right arrow] in small screen [from mobile to 767px] */
+@media (max-width:767px) {
+    .landing .change-background-angle {
+        display: none;
+    }
+}
+
+/* Style left angle */
+.landing .left-angle {
+    left: 30px;  
+}
+
+/* Style right angle */
+.landing .right-angle {
+    right: 30px;
+}
+
+/* Style  dots position */
+.landing ul {
+   
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+
+    display: flex;
+    gap: 5px;
+}
+
+/* Style 3 dots */
+.landing ul li {
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+/* Style active dot [Dot in the middle] */
+.landing ul li:nth-of-type(2) {
+    background-color: var(--main-color, #19c8fa);
+}
+
+/* End Landing */
+/**************************************************************************************************************************/
+/* Start Services Section */
+
+/* Services section padding */
+.services {
+    padding-top: var(--section-padding, 100px);
+    padding-bottom: var(--section-padding, 100px);
+}
+
+/* Distribute services using grid min-width for each column is 450px */
+.services .container .services-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    column-gap: 100px;
+    row-gap: 60px; 
+}
+
+/* im Mobile, make width for grid column  100%  */
+@media (max-width:767px) {
+    .services .container .services-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* disrtribute icon and text-box using flex */
+.services .container .services-content .ser {
+    display: flex;
+}
+
+/* give icon flex-bases [width and heigh] */
+.services .container .services-content .ser i {
+    flex-basis: 80px;
+}
+
+
+.services .container .services-content .ser .text-box {
+    flex:1;
+}
+
+/*in mobile make flex direction column  */
+@media (max-width:767px) {
+    .services .container .services-content .ser {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .services .container .services-content .ser .text-box {
+        text-align: center;
+    }
+}
+
+/* style h3 */
+.services .container .services-content .ser .text-box h3 {
+    color: var(--main-color);
+    margin-bottom: 30px;
+}
+/* style p */
+.services .container .services-content .ser .text-box p {
+     color: #777;  
+     line-height: 2; 
+}
+/* End Services Section */
+/**************************************************************************************************************************/
+/* Start Design Section */
+.design {
+    height: 600px;
+    background-image: url(../images/design-features.jpg);
+    background-size: cover;
+
+    display: flex; /*distribute 2 element using flex. [image container and text container]*/
+    align-items: center; /*center image container and text container*/
+
+    overflow: hidden; /*hide mobile from bottom*/
+
+
+    position: relative; /*make it relative, because we make the Overlay (dark background) by using before instead of html element.*/
+}
+
+/* make Overlay [Darkness for image background] */
+.design::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+/*  */
+.design .image,
+.design .text {
+    flex: 1; /*give 2 element [image container and text container] the same width*/
+    z-index: 2; /*make image container and text container above overlay layer [darkness] */
+}
+
+
+.design .image {
+    text-align: center;
+}
+
+/* In mobile, Hide image */
+/* Tip: Text will be 100% automatically, because we gave it flex:1. so no need to give it width:100% here */
+@media (max-width:767px) {
+    .design .image {
+        display: none;
+    }
+}
+
+/* style image [move it 150px from its location] because it is relative position */
+.design .image img {
+   position: relative;
+   bottom: -150px;
+}
+
+/* style text */
+.design .text {
+    background-color: var(--transparent-color);
+    padding: 50px;
+    color: white;
+}
+
+/* style h2 */
+.design .text h2 {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Style li */
+.design .text ul li{
+    padding: 10px 0;  
+}
+
+/* create icons for li elements using pseudo element instead of HTML Element */
+.design .text ul li::before {
+    content: '\f390';
+    font-family:'Font Awesome 5 Free'; /*To show Font Awesome icon we should write  font-family and  font-weight*/
+    font-weight: 900; 
+
+    margin-right: 15px;
+
+    position: relative; /*Move icons from top 2px from its location.*/
+    top: 2px; 
+    
+}
+
+/* End Design Section */
+/**************************************************************************************************************************/
+/* Start Portfolio Section */
+
+.portfolio {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+}
+
+/* Distribute shuffle (images link: All, App, Photo, web, print) by flex */
+.portfolio .shuffle {
+    display: flex;
+    justify-content: center;
+}
+
+/* Style li */
+.portfolio .shuffle  li {
+    padding: 10px;
+    text-transform: capitalize;
+}
+
+/* Style active link */
+.portfolio .shuffle .active {
+    background-color: var(--main-color);
+    color: white;
+    margin-bottom: 30px;
+}
+
+/* distribute images bu flex */
+.portfolio .images-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Style box (image and caption container) */
+.portfolio .images-container .box {
+    position: relative; /*make it relative, to make caption absolute position*/
+    overflow: hidden; /*make it hidden. to hide image when hove on it . and hide caption*/
+}
+
+/* when hove on box, scale and rotate image */
+.portfolio .images-container .box:hover img{
+    transform: scale(1.1) rotate(5deg);
+    -webkit-transform: scale(1.1) rotate(5deg);
+    -moz-transform: scale(1.1) rotate(5deg);
+    -ms-transform: scale(1.1) rotate(5deg);
+    -o-transform: scale(1.1) rotate(5deg);
+}
+
+/* When hover on box, return caption position from -100% to 0 to show it */
+.portfolio .images-container .box:hover .caption {
+    bottom: 0;
+}
+
+/* we can determain how many element we want in screen by distribute element by flex .
+        ex: if we want 4 element in screen make flex-base:25%, if we want 3 element in screen, we make flex-base 33.333% and 
+        if we want  element in screen, we make flex-base: 50% */
+
+/* in medium screen show 2 images */
+@media (min-width:768px) {
+    .portfolio .images-container .box {
+        flex-basis: 50%;
+    }
+}
+
+/* In large screen show  images */
+@media (min-width:1199px) {
+    .portfolio .images-container .box {
+        flex-basis: 25%;
+    }
+}
+
+/* make image  width 100% from it container */
+.portfolio .images-container .box img {
+    width: 100%;
+
+    transition: 0.5s; /*image transition 0.5s*/
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+
+/* Style caption */
+.portfolio .images-container .box .caption {
+    background-color: white;
+    padding: 20px;
+    width: 100%;
+    text-transform: capitalize;
+
+    position: absolute;
+    left: 0;
+    bottom: -100%; /*hide caption*/
+
+    transition: 0.5s; /*caption transition 0.5s*/
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+/* Style h4 */
+.portfolio .images-container .box .caption h4 {
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+/* Style p */
+.portfolio .images-container .box .caption p {
+    color: var(--main-color);
+}
+
+/* Style link .more */
+.portfolio .more {
+    background-color: var(--main-color);
+    color: white;
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
+    padding: 15px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+/* End Portfolio Section */
+/**************************************************************************************************************************/
+/* Start Video Section */
+.video {
+    position: relative;
+}
+
+.video video {
+    width: 100%;
+}
+
+/* Overlay [dark background on section] */
+.video::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    background-color: rgba(0, 0, 0, 0.40);
+}
+
+/* Style text container */
+.video .text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    
+    background-color: var(--transparent-color);
+    width: 100%;
+    padding: 40px;
+    text-align: center;   
+}
+
+/* style h2 */
+.video .text h2 {
+    color: white;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+/* style p */
+.video .text p {
+    color: white;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+/* style button */
+.video .text button{
+    color: white;
+    background-color: black;
+    padding: 10px 15px;
+    text-transform: uppercase;
+}
+/* End Video Section */
+/**************************************************************************************************************************/
+/* Start About us Section */
+
+/* Style about-us section */
+.about-us {
+    padding-top: var(--section-padding); /*make just padding top without padding bottom, becouse there is image in the bottom.*/
+    text-align: center; /*center the image horizontally*/
+
+    overflow: hidden; /*hide the extra image form bottom*/
+}
+
+/* Style image [make it relative and move it down from its position] */
+.about-us .container  img {
+    position: relative; /* make it relative to move it from its position not from its parent like absolute*/
+    top: 120px; /*move it 120px down*/
+    
+    margin-top: -120px; /*decrease the distance between image and heading*/
+
+    max-width: 100%; /*to be 100% in mobile*/
+}
+
+/* in mobile, move image down only 50px instead of 120px */
+@media (max-width:767px) {
+    .about-us .container  img {
+        top:50px;
+        margin-top: -50px;
+    }
+}
+/* End About us Section */
+/**************************************************************************************************************************/
+/* Start Statistics Section */
+.statistics {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+
+    background-image: url(../images/stats.png);
+    background-size: cover;
+
+    position: relative;
+}
+
+/* overlay background  */
+.statistics::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    background-color: rgba(0, 0, 0, 0.70);
+}
+
+/* make distribute boxes using flex */
+.statistics .container .content {
+    position: relative; /*make it relative, to be above overlay*/
+    
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+/* style box */
+.statistics .container .content .box {
+    color: white;
+    padding: 50px;
+    background-color: var(--transparent-color);
+    text-align: center;
+}
+
+/*Try Mobile first : make one box [box width 100%*]*/
+@media (max-width:767px) {
+    .statistics .container .content .box {
+        flex-basis: 100%;
+    }
+}
+
+/* medium screen to 1199px: make 2 box [ box width 50% ]*/
+@media (min-width:768px) {
+    .statistics .container .content .box {
+        flex-basis: 50%;
+    }
+}
+
+/* large screen: make 4 box [ box width 25% ]*/
+@media (min-width:1200px) {
+    .statistics .container .content .box {
+        flex-basis: 25%;
+    }
+}
+
+/* style icon */
+.statistics .container .content .box i {
+    background-color: black;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    display: flex; /*center icon inside its black background*/
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 auto 30px;
+}
+
+/* Style number */
+.statistics .container .content .box div {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+/* Style p */
+.statistics .container .content .box p {
+   font-size: 14px;
+}
+
+/* End Statistics Section */
+/**************************************************************************************************************************/
+/* Start Testimonials And Skills Sections */
+.testimonials-and-skills-section {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+}
+
+/* Distribute 2 columns by flex (testimonial column and skill column) */
+.testimonials-and-skills-section .container .content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+
+
+/* Style testomonial and skill heading-box together*/
+.testimonials-and-skills-section .container .content > div .heading-box {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+/* give width for testimonial column and skill column to be 45%. the remain 10% use it as space between as gab */
+.testimonials-and-skills-section .container .content > div {
+    flex-basis: 45%;
+}
+
+/*in mobile, make width of testimonlial column 100% and skill column 100% */
+@media (max-width:767px) {
+    .testimonials-and-skills-section .container .content > div {
+        flex-basis: 100%;
+    }
+}
+
+/* Style testomonial and skill heading-box title [first p]*/
+.testimonials-and-skills-section .container .content > div .heading-box p:first-of-type {
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+/* Style testomonial and skill heading-box text paragraph [second p]*/
+.testimonials-and-skills-section .container .content > div .heading-box p:nth-of-type(2) {
+    color: var(--paragraph-color, #777);
+    line-height: 1.8;
+}
+
+
+/* style testimonia person content [image and text]*/
+.testimonials-and-skills-section .container .content .testimonials .persons-content {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+/* in mobile, make flex direction column and center the text */
+@media (max-width:767px) {
+    .testimonials-and-skills-section .container .content .testimonials .persons-content {
+       flex-direction: column;
+       text-align: center;
+    } 
+}
+
+/* style person image */
+.testimonials-and-skills-section .container .content .testimonials .persons-content img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 30px;
+   
+}
+
+/* in mobile, center the person image */
+@media (max-width:767px) {
+    .testimonials-and-skills-section .container .content .testimonials .persons-content img{
+       margin-left: auto;
+       margin-right: auto;
+    } 
+}
+
+/* make border bottom the person to separate between person and the other perdon */
+.testimonials-and-skills-section .container .content .testimonials .persons-content .text-box{
+   border-bottom: 1px solid #ccc;
+}
+
+/* style person text */
+.testimonials-and-skills-section .container .content .testimonials .persons-content .text-box .text{
+   line-height: 1.8;
+   margin-bottom: 30px;
+}
+
+/* Style person name */
+.testimonials-and-skills-section .container .content .testimonials .persons-content .text-box .name{
+   text-align: right;
+   color: var(--paragraph-color);
+   margin-bottom: 20px;
+}
+
+
+/* Style 3 dots [make it flex to distribute it horizontally and center it]*/
+.testimonials-and-skills-section .container .content .testimonials .three-dots ul  {
+    display: flex;
+    justify-content: center;
+    
+}
+
+/*in mobile, make margin bottom for 3 dots */
+@media (max-width:767px) {
+    .testimonials-and-skills-section .container .content .testimonials .three-dots ul  {
+        margin-bottom: 65px;
+        
+    }
+}
+
+/* style 3 dots */
+.testimonials-and-skills-section .container .content .testimonials .three-dots ul li {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    margin-right: 5px;
+}
+
+/* style active dot by give it background-color */
+.testimonials-and-skills-section .container .content .testimonials .three-dots ul .active {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+
+/* Style skill name (adobe, html&css, Javascript and php) */
+.testimonials-and-skills-section .container .content .skills .progress-content .skill-name {
+    text-transform: uppercase;
+}
+
+/* style progress bar div */
+.testimonials-and-skills-section .container .content .skills .progress-content .progress-background-div {
+    width: 100%;  
+    height: 30px;
+    background-color: #dedadc;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+/* style span */
+.testimonials-and-skills-section .container .content .skills .progress-content .progress-background-div span{
+    display: block;
+    height: 100%;
+    background-color: var(--main-color);
+
+    position: relative; /*make it relative, to make before and after*/
+    
+}
+
+/* Style skill progress value (ex: 90%, 85%. 80%, 90%) */
+.testimonials-and-skills-section .container .content .skills .progress-content .progress-background-div span::before{
+    content: attr(progress-value); /*het the progress value from html file*/
+    color: white;
+    background-color: black;
+    
+    position: absolute;
+    padding: 5px;
+    right: -18px;
+    top: -45px;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+/* Style arrow down for progress value */
+.testimonials-and-skills-section .container .content .skills .progress-content .progress-background-div span::after{
+    content: '';
+    width: 15px;
+    height: 15px;
+    background-color: black;
+   
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+
+    position: absolute;
+    right: -6px;
+    top: -27px;
+    
+    z-index: -1;
+
+}
+/* End Testimonials And Skills Sections */
+/**************************************************************************************************************************/
+/* Start Quote Section */
+
+.quote-section  {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+    background-image: url(../images/quote.jpg);
+    background-size: cover;
+
+    position: relative; /*make it relative, to create overlay using before*/
+}
+
+/* make overlay (dark layer) */
+.quote-section::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    background-color: rgba(0, 0, 0, 0.75);
+
+
+}
+
+/* Style container */
+.quote-section  .container {
+    position: relative; /*make it relative, because the previous overlay use position. so we make container above overlay layer*/
+    color: white;
+
+    text-align: center;
+}
+
+/* Style quote */
+.quote-section  .container q{
+    display: block;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+/* Style person name [the person who said the quote] */
+.quote-section  .container span{
+    font-size: 18px;
+}
+/* End Quote Section */
+/**************************************************************************************************************************/
+/* Start Pricing Section */
+.pricing-section {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+}
+
+/* distribute 4 plans using grid */
+.pricing-section .container .plans-box{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    column-gap: 30px;
+    row-gap: 70px;
+}
+
+/* style plan column */
+.pricing-section .container .plans-box .plan-column{
+    text-align: center;
+    background-color: #fcfcfc;
+}
+
+/* style plan heading [plan heading contain plan name, price, currency and plan period ( per month /mo) ]*/
+.pricing-section .container .plans-box .plan-heading{
+    padding: 30px 0;
+    border-top: 1px solid var(--main-color);
+    border-bottom: 1px solid var(--main-color);
+}
+
+/* Style plan name */
+.pricing-section .container .plans-box .plan-heading h3{
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Style plan price */
+.pricing-section .container .plans-box .plan-heading span{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+/* Style plan currency $ */
+/* Tip: if we want to change currency by programming, we have to write currency $ in html file not in CSS file */
+.pricing-section .container .plans-box .plan-heading span::before{
+    content: '$';
+
+    position: relative;
+    top: -40px;
+    left: -12px;
+
+    font-size: 24px;
+    font-weight: normal;  
+}
+
+/* Style plan period (/Mo per month) */
+.pricing-section .container .plans-box .plan-heading span::after{
+    content: '/Mo';
+
+    position: relative;
+    left: 15px;
+
+    font-size: 24px;
+}
+
+/* Style featutes box (featute container) */
+.pricing-section .container .plan-features{
+    border-bottom: 1px solid var(--main-color);
+}
+
+/* Style feature */
+.pricing-section .container .plan-features ul li{
+    padding: 20px 0;
+    text-transform: capitalize;
+
+    position: relative;
+}
+
+/* make border bottom  by using after pseodo element for all features except last one */
+.pricing-section .container .plan-features ul li:not(:last-of-type)::after{
+    content: '';
+    width: 150px;
+    height: 1px;
+    background-color: var(--main-color);
+
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform:translateX(-50%) ;
+    -webkit-transform:translateX(-50%) ;
+    -moz-transform:translateX(-50%) ;
+    -ms-transform:translateX(-50%) ;
+    -o-transform:translateX(-50%) ;
+}
+
+
+
+/* Style plan bye now link */
+.pricing-section .container .plan-link a{
+    display: block;
+    text-decoration: none;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid var(--main-color);
+    text-transform: capitalize;
+}
+
+
+/* Style contact us box */
+.pricing-section .container .contact-us-box {
+    margin: 50px auto;
+    width: fit-content;
+    text-align: center;
+}
+
+/* style contact us paragraph */
+.pricing-section .container .contact-us-box p {
+    font-size: 26px;
+    margin-bottom: 50px;
+}
+
+/* Style contact us link */
+.pricing-section .container .contact-us-box a {
+    background-color: var(--main-color);
+    padding: 15px 30px;
+    color: white;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 18px;
+}
+
+/* End Pricing Section */
+/**************************************************************************************************************************/
+/* Start Subscribe Section */
+.subscribe {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+    background-image: url(../images/subscribe.jpg);
+    background-size: cover;
+
+    position: relative; /*To ceate overlay layer by using absolute position*/
+}
+
+/* Create Overlay Layer (Dark layer) */
+.subscribe::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* give container position to show it above Overlay Layer */
+.subscribe .container {
+    position: relative; /*to show it above Overlay Layer*/
+    
+}
+
+/* sidtribute subscribe contents using flex (2 columns: form column and text column) */
+.subscribe .container .subscribe-contents {
+   
+    display: flex; 
+    align-items: center;
+    gap: 30px;
+
+    color: white;
+}
+
+/* in mobile, make flex direction column */
+@media (max-width:991px) {
+    .subscribe .container .subscribe-contents {
+        flex-direction:column;
+    }
+   
+}
+
+/* Style form (form contain 3 element: icon, input email, input submit)*/
+.subscribe .container .subscribe-contents form {
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    border: 1px solid white;
+
+    width: 500px; /*make form width 500px*/
+    max-width: 100%; /*in small screen (screen less than 500px) the width will be 100% to avoid scrolling*/
+
+}
+
+/* Style icon */
+.subscribe .container .subscribe-contents form i{
+   margin-left: 15px;
+}
+
+/* Style input email */
+.subscribe .container .subscribe-contents form input[type="email"]{
+    padding: 20px 15px;
+    background: none;
+    color: white;
+
+    width: calc(100% - 130px); /*100% of width - 130px submit botton width*/
+  
+
+    border: none;
+    outline: none;
+   
+}
+
+/* Style input email placeholder */
+.subscribe .container .subscribe-contents form input[type="email"]::placeholder{
+   color: white;
+   text-transform: capitalize;
+
+  
+}
+
+/* style input submit botton */
+.subscribe .container .subscribe-contents form input[type="submit"]{
+  width: 130px;
+  padding: 20px;
+  text-transform: uppercase;
+  color: white;
+  background-color: var(--main-color);
+  border: none;
+}
+
+/* Style text paragraph */
+.subscribe .container .subscribe-contents p {
+    line-height: 2;
+}
+/* End Subscribe Section */
+/**************************************************************************************************************************/
+/* Start Contact us Section */
+.contact-us-section {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+}
+
+/* distribute contact us content by flex (2 column: form column and information column) */
+.contact-us-section .contact-us-contents {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* in mobile, make flex direction column */
+@media (max-width:767px) {
+    .contact-us-section .contact-us-contents {
+        flex-direction: column;
+    }
+}
+
+/* Give width for form column  */
+.contact-us-section .contact-us-contents form {
+   flex-basis: 70%;
+}
+
+/* Style 3 elements (input text, input email and textarea) for ( name, email, message) */
+.contact-us-section .contact-us-contents form .main-input{
+    display: block;
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #777;
+    outline: none;
+   
+}
+
+/* Give 200px heigh for textarea */
+.contact-us-section .contact-us-contents form textarea {
+    height: 200px;
+}
+
+/* Style input submit bottn */
+.contact-us-section .contact-us-contents form input[type="submit"] {
+    padding: 20px;
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer; /*to show cursor as pointer*/
+
+    display: block;
+    margin-left: auto; /*make botton to right*/
+}
+
+/* Give width for information column  */
+.contact-us-section .contact-us-contents .information {
+    flex-basis: 25%;
+}
+
+/* Change order for information column to show it befote form column */
+@media (max-width:767px) {
+    .contact-us-section .contact-us-contents .information {
+        order: -1;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+}
+
+/* Style h4 for 2 elements : (get in touch h4 ) and (where we are h4) */
+.contact-us-section .contact-us-contents .information h4 {
+    text-transform: uppercase;
+    font-weight: normal;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+
+/* Style phone number */
+.contact-us-section .contact-us-contents .information .get-in-touch span{
+    display: block;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* make margin top */
+.contact-us-section .contact-us-contents .information .where-we-are {
+    margin-top: 100px;
+}
+
+/* Decrease margin-top in mobile */
+@media (max-width:767px) {
+    .contact-us-section .contact-us-contents .information .where-we-are {
+        margin-top: 30px;
+    }
+}
+
+/* Style address  */
+.contact-us-section .contact-us-contents .information .where-we-are  address{
+    color: #777;
+    line-height: 2;
+}
+ 
+/* End Contact us Section */
+/**************************************************************************************************************************/
+/* Start footer */
+footer {
+    padding-top: calc(var(--section-padding) / 2) ;
+    padding-bottom:  calc(var(--section-padding) / 2) ;
+
+    background-image: url(../images/footer.jpg);
+    background-size: cover;
+
+    position: relative; /*make it relative, To create Overlay Layout*/
+}
+
+/* Overlay Layer */
+footer::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Style content */
+footer .container .content{
+    position: relative; /*to show content above overlay Layer*/
+    color: white;
+    text-align: center;
+}
+
+/* Style logo in the footer */
+footer .container .content img{
+    margin-bottom: 30px;
+}
+
+/* Style paragraph that not have class cpoy-right  */
+footer .container .content p:not(.copy-right) {
+    font-size: 26px;
+    font-weight: normal;
+    text-transform: uppercase;
+    width: fit-content;
+    margin: 0 auto 30px;
+    border-bottom: 1px solid white;
+    padding: 20px;
+}
+
+/* style social icons */
+footer .container .content .sicial-icons i {
+    padding: 0px 20px;
+}
+
+/* style copy-right paragraph */
+footer .container .content .copy-right {
+    margin-top: 30px;
+    text-transform: capitalize;
+}
+
+/* style span */
+footer .container .content .copy-right span {
+    color: var(--main-color);
+    font-weight: bold;
+}
+/* End footer */
