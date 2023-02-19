@@ -209,7 +209,7 @@ header .container nav ul li a:hover {
         top: 100%;
         left: 0; /*left 0 from container because the container is the parent for UL */
         width: 100%;
-
+        background-color: rgba(0, 0, 0, 0.8);
         display: none; /*Hide UL and show it only when we hover on toggle-menu*/
     }
 
